@@ -3,12 +3,12 @@ go-hd44780
 
 Simple library for Hitachi HD44780 LCD Display and Golang.
 
-Dedicated for use in Raspberry Pi and lcd connected to GPIO-ports in 4-bit mode.
+Dedicated for use in Raspberry Pi and lcd connected to GPIO-ports / I2C in 4-bit mode.
 
 ## Dependency
 
 * github.com/stianeikeland/go-rpio
-
+* github.com/kidoman/embd
 
 ## Example
 
@@ -20,6 +20,9 @@ if err := l.lcd.Open(); err != nil {
 lcd.DisplayLines("line1\nline2")
 lcd.Close()
 ```
+
+For I2C use NewI2C4bit(addr).
+
 
 ## License 
 Copyright (c) 2015 Karol Będkowski.
