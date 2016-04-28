@@ -9,4 +9,5 @@ type HD44780 interface {
 	Clear()
 	Display(text string)
 	Active() bool
+	SetChar(pos byte, def []byte)
 }

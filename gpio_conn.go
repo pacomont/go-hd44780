@@ -252,3 +252,13 @@ func (h *GPIO4bit) Display(line int, text string) {
 		h.writeByte(byte(text[c]), lcdChr)
 	}
 }
+
+func (h *GPIO4bit) SetChar(pos byte, def []byte) {
+	if len(def) != 8 {
+		panic("invalid def - req 8 bytes")
+	}
+	h.writeByte(0x40+pos*8, lcdCmd)
+	for _, d := range def {
+		h.writeByte(d, lcdChr)
+	}
+}

@@ -60,7 +60,9 @@ func (h *I2C4bit) Open() (err error) {
 		hd44780.PCF8574PinMap,
 		hd44780.RowAddress16Col,
 		hd44780.TwoLine,
-		hd44780.BlinkOff,
+		//		hd44780.BlinkOff,
+		hd44780.CursorOff,
+		hd44780.EntryIncrement,
 	)
 	if err != nil {
 		return err
@@ -142,9 +144,11 @@ func (h *I2C4bit) Display(line int, text string) {
 
 	h.lastLines[line] = text
 
-	h.hd.SetCursor(0, line)
-	for _, c := range text {
-		h.hd.WriteChar(byte(c))
+	if h.backlight {
+		h.hd.SetCursor(0, line)
+		for _, c := range text {
+			h.hd.WriteChar(byte(c))
+		}
 	}
 }
 
@@ -154,9 +158,25 @@ func (h *I2C4bit) ToggleBacklight() {
 	}
 	if h.backlight {
 		h.hd.BacklightOff()
+		h.hd.Clear()
+		h.hd.Home()
 	} else {
 		h.hd.BacklightOn()
+		for l, line := range h.lastLines {
+			h.lastLines[l] = ""
+			h.Display(l, line)
+		}
 	}
 	h.backlight = !h.backlight
 
+}
+
+func (h *I2C4bit) SetChar(pos byte, def []byte) {
+	if len(def) != 8 {
+		panic("invalid def - req 8 bytes")
+	}
+	h.hd.WriteInstruction(0x40 + pos*8)
+	for _, d := range def {
+		h.hd.WriteChar(d)
+	}
 }
