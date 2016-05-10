@@ -4,11 +4,14 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/kidoman/embd"
-	"github.com/kidoman/embd/controller/hd44780"
+	//"github.com/kidoman/embd"
+	//"github.com/kidoman/embd/controller/hd44780"
+	"github.com/zlowred/embd"
+	"github.com/zlowred/embd/controller/hd44780"
 
 	// load only rpi
-	_ "github.com/kidoman/embd/host/rpi"
+	//_ "github.com/kidoman/embd/host/rpi"
+	_ "github.com/zlowred/embd/host/rpi"
 )
 
 // I2C4bit allow communicate wit HD44780 via I2C in 4bit mode
