@@ -134,10 +134,8 @@ func (h *I2C4bit) Display(line int, text string) {
 		return
 	}
 
-	if len(text) < lcdWidth {
-		text = text + strings.Repeat(" ", h.Width-len(text))
-	} else {
-		text = text[:h.Width]
+	if !h.backlight {
+		return
 	}
 
 	// skip not changed lines
@@ -147,11 +145,16 @@ func (h *I2C4bit) Display(line int, text string) {
 
 	h.lastLines[line] = text
 
-	if h.backlight {
-		h.hd.SetCursor(0, line)
-		for _, c := range text {
-			h.hd.WriteChar(byte(c))
-		}
+	textLen := len(text)
+	if textLen < lcdWidth {
+		text = text + strings.Repeat(" ", h.Width-textLen)
+	} else if textLen > h.Width {
+		text = text[:h.Width]
+	}
+
+	h.hd.SetCursor(0, line)
+	for _, c := range text {
+		h.hd.WriteChar(byte(c))
 	}
 }
 
@@ -163,15 +166,15 @@ func (h *I2C4bit) ToggleBacklight() {
 		h.hd.BacklightOff()
 		h.hd.Clear()
 		h.hd.Home()
+		h.backlight = false
 	} else {
 		h.hd.BacklightOn()
+		h.backlight = true
 		for l, line := range h.lastLines {
 			h.lastLines[l] = ""
 			h.Display(l, line)
 		}
 	}
-	h.backlight = !h.backlight
-
 }
 
 func (h *I2C4bit) SetChar(pos byte, def []byte) {
