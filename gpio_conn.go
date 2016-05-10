@@ -119,6 +119,25 @@ func (h *GPIO4bit) reset() {
 	time.Sleep(5 * time.Millisecond)
 }
 
+// Clear display
+func (h *GPIO4bit) Clear() {
+	h.Lock()
+	defer h.Unlock()
+
+	if !h.active {
+		return
+	}
+
+	h.writeByte(lcdLine1, lcdCmd)
+	for i := 0; i < lcdWidth; i++ {
+		h.writeByte(' ', lcdChr)
+	}
+	h.writeByte(lcdLine2, lcdCmd)
+	for i := 0; i < lcdWidth; i++ {
+		h.writeByte(' ', lcdChr)
+	}
+}
+
 // Close interface, clear display.
 func (h *GPIO4bit) Close() {
 	h.Lock()
@@ -261,4 +280,7 @@ func (h *GPIO4bit) SetChar(pos byte, def []byte) {
 	for _, d := range def {
 		h.writeByte(d, lcdChr)
 	}
+}
+
+func (h *GPIO4bit) ToggleBacklight() {
 }

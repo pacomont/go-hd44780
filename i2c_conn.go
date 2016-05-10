@@ -94,6 +94,13 @@ func (h *I2C4bit) Reset() {
 	h.hd.Clear()
 }
 
+// Clear screen
+func (h *I2C4bit) Clear() {
+	h.Lock()
+	defer h.Unlock()
+	h.hd.Clear()
+}
+
 func (h *I2C4bit) reset() {
 	// clear the display
 	h.hd.Clear()
