@@ -8,7 +8,7 @@ Dedicated for use in Raspberry Pi and lcd connected to GPIO-ports / I2C in 4-bit
 ## Dependency
 
 * github.com/stianeikeland/go-rpio
-* github.com/kidoman/embd
+* github.com/zlowred/embd (github.com/kidoman/embd)
 
 ## Example
 
