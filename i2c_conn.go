@@ -2,7 +2,7 @@ package hd44780
 
 import (
 	"strings"
-	"sync"
+	//	"sync"
 
 	//"github.com/kidoman/embd"
 	//"github.com/kidoman/embd/controller/hd44780"
@@ -16,7 +16,7 @@ import (
 
 // I2C4bit allow communicate wit HD44780 via I2C in 4bit mode
 type I2C4bit struct {
-	sync.Mutex
+	//	sync.Mutex
 
 	// max lines
 	Lines int
@@ -44,8 +44,8 @@ func NewI2C4bit(addr byte) (h *I2C4bit) {
 
 // Open / initialize LCD interface
 func (h *I2C4bit) Open() (err error) {
-	h.Lock()
-	defer h.Unlock()
+	//	h.Lock()
+	//	defer h.Unlock()
 
 	if h.active {
 		return
@@ -89,15 +89,15 @@ func (h *I2C4bit) Active() bool {
 
 // Reset interface
 func (h *I2C4bit) Reset() {
-	h.Lock()
-	defer h.Unlock()
+	//	h.Lock()
+	//	defer h.Unlock()
 	h.hd.Clear()
 }
 
 // Clear screen
 func (h *I2C4bit) Clear() {
-	h.Lock()
-	defer h.Unlock()
+	//	h.Lock()
+	//	defer h.Unlock()
 	h.hd.Clear()
 }
 
@@ -108,8 +108,8 @@ func (h *I2C4bit) reset() {
 
 // Close interface, clear display.
 func (h *I2C4bit) Close() {
-	h.Lock()
-	defer h.Unlock()
+	//	h.Lock()
+	//	defer h.Unlock()
 
 	if !h.active {
 		return
@@ -130,8 +130,8 @@ func (h *I2C4bit) DisplayLines(msg string) {
 
 // Display only one line
 func (h *I2C4bit) Display(line int, text string) {
-	h.Lock()
-	defer h.Unlock()
+	//	h.Lock()
+	//	defer h.Unlock()
 
 	if !h.active {
 		return
