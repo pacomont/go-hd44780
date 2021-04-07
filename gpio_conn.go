@@ -55,7 +55,7 @@ func NewGPIO4bit() (h *GPIO4bit) {
 		D6Pin:     23,
 		D7Pin:     18,
 		Lines:     2,
-		LinesAddr: []byte{lcdLine1, lcdLine2},
+		LinesAddr: []byte{lcdLine1, lcdLine2, lcdLine3, lcdLine4},
 		Width:     lcdWidth,
 	}
 	return
@@ -136,6 +136,14 @@ func (h *GPIO4bit) Clear() {
 	for i := 0; i < lcdWidth; i++ {
 		h.writeByte(' ', lcdChr)
 	}
+	h.writeByte(lcdLine3, lcdCmd)
+	for i := 0; i < lcdWidth; i++ {
+		h.writeByte(' ', lcdChr)
+	}
+	h.writeByte(lcdLine4, lcdCmd)
+	for i := 0; i < lcdWidth; i++ {
+		h.writeByte(' ', lcdChr)
+	}
 }
 
 // Close interface, clear display.
@@ -152,6 +160,14 @@ func (h *GPIO4bit) Close() {
 		h.writeByte(' ', lcdChr)
 	}
 	h.writeByte(lcdLine2, lcdCmd)
+	for i := 0; i < lcdWidth; i++ {
+		h.writeByte(' ', lcdChr)
+	}
+	h.writeByte(lcdLine3, lcdCmd)
+	for i := 0; i < lcdWidth; i++ {
+		h.writeByte(' ', lcdChr)
+	}
+	h.writeByte(lcdLine4, lcdCmd)
 	for i := 0; i < lcdWidth; i++ {
 		h.writeByte(' ', lcdChr)
 	}
