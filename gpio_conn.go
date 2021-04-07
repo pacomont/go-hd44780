@@ -54,7 +54,7 @@ func NewGPIO4bit() (h *GPIO4bit) {
 		D5Pin:     24,
 		D6Pin:     23,
 		D7Pin:     18,
-		Lines:     2,
+		Lines:     4,
 		LinesAddr: []byte{lcdLine1, lcdLine2, lcdLine3, lcdLine4},
 		Width:     lcdWidth,
 	}
