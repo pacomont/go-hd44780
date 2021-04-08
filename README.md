@@ -5,6 +5,8 @@ Simple library for Hitachi HD44780 LCD Display and Golang.
 
 Dedicated for use in Raspberry Pi and lcd connected to GPIO-ports / I2C in 4-bit mode.
 
+MOD: for a 20x4 Display by GPIO-ports
+
 ## Dependency
 
 * github.com/stianeikeland/go-rpio
